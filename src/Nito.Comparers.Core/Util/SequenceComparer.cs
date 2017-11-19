@@ -6,13 +6,14 @@ namespace Nito.Comparers.Util
     /// A comparer that performs a lexicographical ordering on a sequence.
     /// </summary>
     /// <typeparam name="T">The type of sequence elements being compared.</typeparam>
-    internal sealed class SequenceComparer<T> : SourceComparerBase<IEnumerable<T>, T>
+    /// <typeparam name="TComparer"></typeparam>
+    internal class SequenceComparer<T, TComparer> : SourceComparerBase<IEnumerable<T>, T,TComparer> where TComparer : IComparer<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SequenceComparer&lt;T&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SequenceComparer{T, TComparer}"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
-        public SequenceComparer(IComparer<T> source)
+        public SequenceComparer(TComparer source)
             : base(source, false)
         {
         }

@@ -48,7 +48,7 @@ namespace Nito.Comparers.Linq
         public static IOrderedEnumerable<T> ThenBy<T, TKey>(this IOrderedEnumerable<T> source, Func<T, TKey> keySelector, Func<ComparerBuilder<TKey>, IFullComparer<TKey>> comparerFactory)
         {
             var comparer = comparerFactory(ComparerBuilder.For<TKey>());
-            return source.ThenBy(keySelector, comparer);
+            return source.ThenBy<T,TKey>(keySelector, comparer);
         }
 
         /// <summary>

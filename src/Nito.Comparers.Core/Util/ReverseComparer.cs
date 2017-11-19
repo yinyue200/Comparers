@@ -6,13 +6,14 @@ namespace Nito.Comparers.Util
     /// A comparer that reverses the evaluation of the specified source comparer.
     /// </summary>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    internal sealed class ReverseComparer<T> : SourceComparerBase<T, T>
+    /// <typeparam name="TComparer"></typeparam>
+    internal class ReverseComparer<T, TComparer> : SourceComparerBase<T, T, TComparer> where TComparer : IComparer<T>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReverseComparer&lt;T&gt;"/> class.
+        /// Initializes a new instance of the <see cref="ReverseComparer{T, TComparer}"/> class.
         /// </summary>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
-        public ReverseComparer(IComparer<T> source)
+        public ReverseComparer(TComparer source)
             : base(source, true)
         {
         }

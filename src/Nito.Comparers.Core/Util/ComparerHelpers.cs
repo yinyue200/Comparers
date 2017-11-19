@@ -46,8 +46,8 @@ namespace Nito.Comparers.Util
             // Extract the U and create a SequenceComparer<U>.
             var enumerable = ReflectionHelpers.TryGetEnumeratorType(typeof(T));
             var elementTypes = enumerable.GenericTypeArguments;
-            var genericSequenceComparerType = typeof(SequenceComparer<>);
-            var sequenceComparerType = genericSequenceComparerType.MakeGenericType(elementTypes);
+            var genericSequenceComparerType = typeof(SequenceComparer<,>);
+            var sequenceComparerType = genericSequenceComparerType.MakeGenericType(elementTypes[0],typeof(IComparer<>).MakeGenericType(elementTypes[0]));
             var genericComparerType = typeof(IComparer<>);
             var comparerType = genericComparerType.MakeGenericType(elementTypes);
             var constructor = sequenceComparerType.GetTypeInfo().DeclaredConstructors.First();

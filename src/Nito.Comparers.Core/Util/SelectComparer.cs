@@ -8,20 +8,21 @@ namespace Nito.Comparers.Util
     /// </summary>
     /// <typeparam name="TSource">The type of key objects being compared.</typeparam>
     /// <typeparam name="T">The type of objects being compared.</typeparam>
-    internal sealed class SelectComparer<T, TSource> : SourceComparerBase<T, TSource>
+    /// <typeparam name="TComparer"></typeparam>
+    internal class SelectComparer<T, TSource,TComparer> : SourceComparerBase<T, TSource, TComparer> where TComparer:IComparer<TSource>
     {
         /// <summary>
         /// The key selector.
         /// </summary>
-        private readonly Func<T, TSource> _selector;
+        protected readonly Func<T, TSource> _selector;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SelectComparer&lt;T, TSource&gt;"/> class.
+        /// Initializes a new instance of the <see cref="SelectComparer{T, TSource, TComparer}"/> class.
         /// </summary>
         /// <param name="selector">The key selector. May not be <c>null</c>.</param>
         /// <param name="source">The source comparer. If this is <c>null</c>, the default comparer is used.</param>
         /// <param name="specialNullHandling">A value indicating whether <c>null</c> values are passed to <paramref name="selector"/>. If <c>false</c>, then <c>null</c> values are considered less than any non-<c>null</c> values and are not passed to <paramref name="selector"/>.</param>
-        public SelectComparer(Func<T, TSource> selector, IComparer<TSource> source, bool specialNullHandling)
+        public SelectComparer(Func<T, TSource> selector, TComparer source, bool specialNullHandling)
             : base(source, specialNullHandling)
         {
             _selector = selector;

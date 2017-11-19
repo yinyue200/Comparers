@@ -19,7 +19,11 @@ namespace Nito.Comparers.Util
         /// <returns>A comparer that works by comparing the results of the specified key selector.</returns>
         public static IFullComparer<T> SelectFrom<T, TSource>(this IComparer<TSource> source, Func<T, TSource> selector, bool specialNullHandling = false)
         {
-            return new SelectComparer<T, TSource>(selector, source, specialNullHandling);
+            return new SelectComparer<T, TSource, IComparer<TSource>>(selector, source, specialNullHandling);
+        }
+        public static IFullComparer<T> SelectFrom<T, TSource, TComparer>(this TComparer source, Func<T, TSource> selector, bool specialNullHandling = false) where TComparer:IComparer<TSource>,IEqualityComparer<TSource>
+        {
+            return new FullSelectComparer<T, TSource, TComparer>(selector, source, specialNullHandling);
         }
     }
 }
